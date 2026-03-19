@@ -10,6 +10,7 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono:wght@700&display=swap"
         rel="stylesheet">
     <script src="config.js"></script>
+    <script src="https://mcapi.us/scripts/minecraft.min.js"></script>
     <style>
         #contact a {
             text-decoration: none;
@@ -834,23 +835,30 @@
                 <span class="price-row-cost">${p.price}</span>
             </div>`).join('');
 
+
             checkServer();
+            setInterval(checkServer, 5000);
         });
 
-        async function checkServer() {
-            try {
-                const res = await fetch(`https://api.mcsrvstat.us/2/${CONFIG.serverIP}`);
-                const data = await res.json();
-                const dot = document.getElementById('status-dot');
-                const text = document.getElementById('status-text');
+        function checkServer() {
+            const dot = document.getElementById('status-dot');
+            const text = document.getElementById('status-text');
+            MinecraftAPI.getServerStatus(CONFIG.serverIP, {}, function (err, data) {
+                if (err || !data) {
+                    dot.classList.remove('online');
+                    text.innerText = "KHÔNG THỂ KẾT NỐI MÁY CHỦ";
+                    return;
+                }
                 if (data.online) {
                     dot.classList.add('online');
-                    text.innerHTML = `MÁY CHỦ ONLINE: <b style="color:#22c55e; font-size:1.2rem;">${data.players.online} / ${data.players.max}</b>`;
+                    text.innerHTML = `MÁY CHỦ ONLINE: <b style="color:#22c55e; font-size:1.2rem;">${data.players.now} / ${data.players.max}</b>`;
                 } else {
+                    dot.classList.remove('online');
                     text.innerText = "MÁY CHỦ ĐANG BẢO TRÌ";
                 }
-            } catch (e) { console.log("Lỗi kết nối API trạng thái"); }
+            });
         }
+
 
         function copyIP() {
             navigator.clipboard.writeText(CONFIG.serverIP);
