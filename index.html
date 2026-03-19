@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZURA COMMUNITY | Minecraft Server</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono:wght@700&display=swap"
+        rel="stylesheet">
+
+    <script src="config.js"></script>
+
+    <style>
+        #contact a {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        #contact a h3 {
+            margin-top: 10px;
+            font-weight: 700;
+        }
+
+        #contact a:hover h3 {
+            color: var(--primary);
+        }
+
+        #contact .card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #contact .card:hover {
+            transform: translateY(-10px) scale(1.05);
+        }
+
+        #contact i {
+            transition: 0.3s;
+        }
+
+        #contact .card:hover i {
+            transform: scale(1.2);
+        }
+
+        :root {
+            --primary: #3b82f6;
+            --bg-dark: #0a0a0f;
+            --bg-card: rgba(255, 255, 255, 0.1);
+            --border: rgba(255, 255, 255, 0.12);
+            --text: #ffffff;
+            --nav-height: 80px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: var(--nav-height);
+        }
+
+        body {
+            background: var(--bg-dark);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .bg-fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.8) blur(3px);
+            z-index: -2;
+            transform: scale(1.05);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, transparent, rgba(0, 0, 0, 0.85));
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+
+        section {
+            padding: 140px 0;
+            margin: 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 60px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: var(--nav-height);
+            background: rgba(10, 10, 15, 0.9);
+            backdrop-filter: blur(20px);
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-inner {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            font-weight: 900;
+            font-size: 1.8rem;
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .nav-brand span {
+            color: var(--primary);
+        }
+
+        .nav-links a {
+            color: #ccc;
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .logo {
+            width: 150px;
+            border-radius: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 0 40px var(--primary);
+        }
+
+        .hero h1 {
+            font-size: 5.5rem;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 15px;
+        }
+
+        .hero h1 span {
+            color: var(--primary);
+        }
+
+        /* Version & Tags */
+        .hero-tags {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .v-tag {
+            background: var(--primary);
+            color: #fff;
+            padding: 6px 18px;
+            border-radius: 10px;
+            font-weight: 900;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+        }
+
+        .b-tag {
+            background: #10b981;
+            color: #fff;
+            padding: 6px 18px;
+            border-radius: 10px;
+            font-weight: 900;
+            font-size: 0.9rem;
+        }
+
+        .status-box {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 12px 30px;
+            border-radius: 50px;
+            border: 1px solid var(--border);
+            margin: 20px 0;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #555;
+        }
+
+        .dot.online {
+            background: #22c55e;
+            box-shadow: 0 0 15px #22c55e;
+        }
+
+        .ip-box {
+            background: rgba(59, 130, 246, 0.15);
+            border: 3px solid var(--primary);
+            padding: 25px 60px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: 0.4s;
+            margin-top: 20px;
+        }
+
+        .ip-box:hover {
+            transform: translateY(-10px);
+            background: rgba(59, 130, 246, 0.3);
+        }
+
+        .ip-text {
+            font-family: 'JetBrains Mono';
+            font-size: 2.2rem;
+            font-weight: 900;
+        }
+
+        /* Grid System */
+        .auto-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            /* tăng sáng viền */
+            padding: 45px 35px;
+            border-radius: 30px;
+            backdrop-filter: blur(15px);
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .card:hover {
+            transform: translateY(-15px);
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.18);
+        }
+
+        /* VIP Rank Cards */
+        .rank-card {
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            border-top-width: 8px !important;
+        }
+
+        .rank-name {
+            font-size: 2.2rem;
+            font-weight: 900;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .rank-features {
+            list-style: none;
+            flex-grow: 1;
+        }
+
+        .rank-features li {
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 1.1rem;
+            color: #eee;
+        }
+
+        .rank-features li i {
+            color: #22c55e;
+            margin-right: 12px;
+        }
+
+        .hot-tag {
+            position: absolute;
+            top: 20px;
+            right: -35px;
+            background: #f59e0b;
+            color: #000;
+            padding: 5px 45px;
+            transform: rotate(45deg);
+            font-weight: 900;
+            font-size: 0.8rem;
+        }
+
+        /* Table Pricing */
+        .price-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 20px;
+        }
+
+        .price-table th {
+            padding: 20px;
+            text-align: left;
+            color: var(--primary);
+            font-size: 1.2rem;
+            font-weight: 900;
+        }
+
+        .price-table td {
+            padding: 30px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-style: solid none;
+        }
+
+        .price-table td:first-child {
+            border-left: 1px solid var(--border);
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .price-table td:last-child {
+            border-right: 1px solid var(--border);
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+            text-align: right;
+            color: var(--primary);
+            font-weight: 900;
+            font-size: 1.4rem;
+        }
+
+        /* Guide Cases */
+        .guide-card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        /* Toast */
+        #toast {
+            position: fixed;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #22c55e;
+            color: #fff;
+            padding: 20px 50px;
+            border-radius: 20px;
+            transition: 0.6s;
+            z-index: 9999;
+            font-weight: 900;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        #toast.show {
+            bottom: 50px;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+
+            .ip-text {
+                font-size: 1.6rem;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+                margin-bottom: 100px;
+            }
+        }
+
+        footer {
+            margin-top: 120px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="bg-fixed" id="bg-img"></div>
+    <div class="overlay"></div>
+
+    <nav class="navbar">
+        <div class="container nav-inner">
+            <a href="#" class="nav-brand" id="nav-brand">NAME<span>BRAND</span></a>
+            <div class="nav-links">
+                <a href="#about">Giới thiệu</a>
+                <a href="#rules">Luật chơi</a>
+                <a href="#ranks">Hạng VIP</a>
+                <a href="#guides">Hướng dẫn</a>
+                <a href="#pricing">Bảng giá</a>
+                <a href="#contact">Liên hệ</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <img src="" id="hero-logo" class="logo">
+        <div class="hero-tags">
+            <div class="v-tag" id="v-java">Java: 1.20.x</div>
+            <div class="b-tag" id="v-bedrock">Bedrock: 1.21</div>
+        </div>
+        <h1 id="hero-title">ZURA<span>COMMUNITY</span></h1>
+        <p id="hero-slogan" style="color: #ccc; font-size: 1.5rem; font-weight: 500;"></p>
+
+        <div class="status-box">
+            <div class="dot" id="status-dot"></div>
+            <span id="status-text">Đang kiểm tra máy chủ...</span>
+        </div>
+
+        <div class="ip-box" onclick="copyIP()">
+            <div style="font-size: 0.9rem; letter-spacing: 6px; margin-bottom: 12px; font-weight: 800; opacity: 0.7;">
+                CLICK ĐỂ SAO CHÉP IP</div>
+            <div class="ip-text" id="hero-ip">zura.wtf</div>
+        </div>
+    </section>
+
+    <section id="about" class="container">
+        <h2 class="section-title">Khám Phá Server</h2>
+        <div class="auto-grid" id="about-grid"></div>
+    </section>
+
+    <section id="rules" class="container">
+        <h2 class="section-title">Luật Máy Chủ</h2>
+        <div class="rule-list" id="rules-grid"></div>
+    </section>
+
+    <section id="ranks" class="container">
+        <h2 class="section-title">Hạng VIP & Đặc Quyền</h2>
+        <div class="auto-grid" id="ranks-grid"></div>
+    </section>
+
+    <section id="guides" class="container">
+        <h2 class="section-title">Hướng Dẫn Tân Thủ</h2>
+        <div class="auto-grid" id="guides-grid"></div>
+    </section>
+
+    <section id="pricing" class="container">
+        <h2 class="section-title">Bảng Giá Dịch Vụ</h2>
+        <table class="price-table">
+            <thead>
+                <tr>
+                    <th>GÓI DỊCH VỤ</th>
+                    <th style="text-align: right;">CHI PHÍ</th>
+                </tr>
+            </thead>
+            <tbody id="pricing-grid"></tbody>
+
+        </table>
+
+    </section>
+    <section id="contact" class="container">
+        <h2 class="section-title">Liên Hệ & Hỗ Trợ</h2>
+        <div style="display:flex; gap:30px; justify-content:center; flex-wrap:wrap;">
+
+            <a id="contact-fb" target="_blank" class="card" style="text-align:center; width:260px;">
+                <i class="fab fa-facebook-messenger" style="font-size:3rem; color:#1877f2; margin-bottom:15px;"></i>
+                <h3>Messenger</h3>
+                <p style="color:#ccc;">Nhắn tin hỗ trợ nhanh</p>
+            </a>
+
+            <a id="contact-ds" target="_blank" class="card" style="text-align:center; width:260px;">
+                <i class="fab fa-discord" style="font-size:3rem; color:#5865f2; margin-bottom:15px;"></i>
+                <h3>Discord</h3>
+                <p style="color:#ccc;">Tham gia cộng đồng</p>
+            </a>
+
+        </div>
+    </section>
+
+
+    <footer
+        style="padding: 60px 0; text-align: center; background: rgba(0,0,0,0.4); border-top: 1px solid var(--border);">
+        <p style="opacity: 0.6; font-size: 1.1rem; margin-bottom: 15px;">&copy; 2024 ZURA COMMUNITY. ALL RIGHTS
+            RESERVED.</p>
+        <a href="#" class="nav-brand" style="font-size: 1.2rem;">DESIGNED BY <span>ZURA</span></a>
+    </footer>
+
+    <div id="toast">✅ ĐÃ SAO CHÉP IP SERVER THÀNH CÔNG!</div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            if (typeof CONFIG === 'undefined') return;
+
+            // Load Thông tin từ CONFIG
+            document.getElementById('bg-img').style.backgroundImage = `url('${CONFIG.bgImage}')`;
+            document.getElementById('nav-brand').innerHTML = `${CONFIG.serverName}<span>${CONFIG.serverNameHighlight}</span>`;
+            document.getElementById('hero-title').innerHTML = `${CONFIG.serverName}<span>${CONFIG.serverNameHighlight}</span>`;
+            document.getElementById('hero-logo').src = CONFIG.logoUrl;
+            document.getElementById('hero-slogan').innerText = CONFIG.serverSlogan;
+            document.getElementById('hero-ip').innerText = CONFIG.serverIP;
+            document.getElementById('v-java').innerText = `Java: ${CONFIG.versions.java}`;
+            document.getElementById('v-bedrock').innerText = `Bedrock: ${CONFIG.versions.bedrock}`;
+            document.getElementById('contact-fb').href = CONFIG.social.facebook;
+            document.getElementById('contact-ds').href = CONFIG.social.discord;
+            // Render About
+            document.getElementById('about-grid').innerHTML = CONFIG.about.map(a => `
+                <div class="card" style="text-align:center">
+                    <i class="fas ${a.icon}" style="font-size:4.5rem; color:var(--primary); margin-bottom:30px;"></i>
+                    <h3>${a.title}</h3>
+                    <p style="color:#bbb; font-size:1.1rem;">${a.desc}</p>
+                </div>
+            `).join('');
+
+            // Render Rules
+            document.getElementById('rules-grid').innerHTML = CONFIG.rules.map((r, i) => `
+                <div class="card" style="display:flex; align-items:center; gap:30px; padding:35px 50px; margin-bottom:20px;">
+                    <div style="background:var(--primary); color:#fff; width:50px; height:50px; border-radius:15px; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:1.5rem; flex-shrink:0;">${i + 1}</div>
+                    <div style="font-size:1.2rem; font-weight:600; color:#eee;">${r}</div>
+                </div>
+            `).join('');
+
+            // Render Ranks (Hỗ trợ nhiều hạng VIP tự động)
+            document.getElementById('ranks-grid').innerHTML = CONFIG.ranks.map(rank => `
+                <div class="card rank-card" style="border-top-color: ${rank.color}">
+                    ${rank.popular ? '<div class="hot-tag">PHỔ BIẾN</div>' : ''}
+                    <div class="rank-name" style="color:${rank.color}">${rank.name}</div>
+                    <ul class="rank-features">
+                        ${rank.features.map(f => `<li><i class="fas fa-check-circle"></i> ${f}</li>`).join('')}
+                    </ul>
+                </div>
+            `).join('');
+
+            // Render Guides
+            document.getElementById('guides-grid').innerHTML = CONFIG.guides.map(g => `
+                <div class="card guide-card">
+                    <h3><i class="fas fa-question-circle"></i> ${g.title}</h3>
+                    <p style="color:#ccc;">${g.content}</p>
+                </div>
+            `).join('');
+
+            // Render Pricing
+            document.getElementById('pricing-grid').innerHTML = CONFIG.pricing.map(p => `
+                <tr>
+                    <td>${p.item}</td>
+                    <td>${p.price}</td>
+                </tr>
+            `).join('');
+
+            checkServer();
+        });
+
+        async function checkServer() {
+            try {
+                const res = await fetch(`https://api.mcsrvstat.us/2/${CONFIG.serverIP}`);
+                const data = await res.json();
+                const dot = document.getElementById('status-dot');
+                const text = document.getElementById('status-text');
+                if (data.online) {
+                    dot.classList.add('online');
+                    text.innerHTML = `MÁY CHỦ ONLINE: <b style="color:#22c55e; font-size:1.2rem;">${data.players.online} / ${data.players.max}</b>`;
+                } else {
+                    text.innerText = "MÁY CHỦ ĐANG BẢO TRÌ";
+                }
+            } catch (e) { console.log("Lỗi kết nối API trạng thái"); }
+        }
+
+        function copyIP() {
+            navigator.clipboard.writeText(CONFIG.serverIP);
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+    </script>
+</body>
+
+</html>
