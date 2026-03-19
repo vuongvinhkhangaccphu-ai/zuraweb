@@ -65,6 +65,7 @@
         html {
             scroll-behavior: smooth;
             scroll-padding-top: var(--nav-height);
+            font-size: 80%;
         }
 
         body {
@@ -93,7 +94,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, transparent, rgba(0, 0, 0, 0.85));
+            background: rgba(0, 0, 0, 0.55);
             z-index: -1;
         }
 
@@ -103,9 +104,9 @@
             padding: 0 25px;
         }
 
-        section {
-            padding: 140px 0;
-            margin: 100px 0;
+        /* Fix spacing: dùng wrapper bao ngoài section thay vì gộp chung class */
+        .section-wrapper {
+            padding: 120px 0 160px 0;
         }
 
         .section-title {
@@ -271,7 +272,6 @@
         .card {
             background: var(--bg-card);
             border: 1px solid rgba(255, 255, 255, 0.25);
-            /* tăng sáng viền */
             padding: 45px 35px;
             border-radius: 30px;
             backdrop-filter: blur(15px);
@@ -333,47 +333,61 @@
         /* Table Pricing */
         .price-table {
             width: 100%;
-            border-collapse: separate;
-            border-spacing: 0 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
         }
 
-        .price-table th {
-            padding: 20px;
-            text-align: left;
+        #pricing-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .price-table-header {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 30px;
             color: var(--primary);
             font-size: 1.2rem;
             font-weight: 900;
         }
 
-        .price-table td {
-            padding: 30px;
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 30px;
             background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-style: solid none;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 20px;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .price-table td:first-child {
-            border-left: 1px solid var(--border);
-            border-top-left-radius: 20px;
-            border-bottom-left-radius: 20px;
+        .price-row:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.18);
+        }
+
+        .price-row-name {
             font-weight: 700;
             font-size: 1.2rem;
+            color: #fff;
         }
 
-        .price-table td:last-child {
-            border-right: 1px solid var(--border);
-            border-top-right-radius: 20px;
-            border-bottom-right-radius: 20px;
-            text-align: right;
-            color: var(--primary);
+        .price-row-cost {
             font-weight: 900;
             font-size: 1.4rem;
+            color: var(--primary);
         }
 
         /* Guide Cases */
         .guide-card h3 {
             color: var(--primary);
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             font-size: 1.5rem;
         }
 
@@ -408,12 +422,16 @@
 
             .section-title {
                 font-size: 2.5rem;
-                margin-bottom: 100px;
+                margin-bottom: 40px;
+            }
+
+            .section-wrapper {
+                padding: 80px 0 120px 0;
             }
         }
 
         footer {
-            margin-top: 120px;
+            margin-top: 60px;
         }
     </style>
 </head>
@@ -458,59 +476,68 @@
         </div>
     </section>
 
-    <section id="about" class="container">
-        <h2 class="section-title">Khám Phá Server</h2>
-        <div class="auto-grid" id="about-grid"></div>
-    </section>
-
-    <section id="rules" class="container">
-        <h2 class="section-title">Luật Máy Chủ</h2>
-        <div class="rule-list" id="rules-grid"></div>
-    </section>
-
-    <section id="ranks" class="container">
-        <h2 class="section-title">Hạng VIP & Đặc Quyền</h2>
-        <div class="auto-grid" id="ranks-grid"></div>
-    </section>
-
-    <section id="guides" class="container">
-        <h2 class="section-title">Hướng Dẫn Tân Thủ</h2>
-        <div class="auto-grid" id="guides-grid"></div>
-    </section>
-
-    <section id="pricing" class="container">
-        <h2 class="section-title">Bảng Giá Dịch Vụ</h2>
-        <table class="price-table">
-            <thead>
-                <tr>
-                    <th>GÓI DỊCH VỤ</th>
-                    <th style="text-align: right;">CHI PHÍ</th>
-                </tr>
-            </thead>
-            <tbody id="pricing-grid"></tbody>
-
-        </table>
-
-    </section>
-    <section id="contact" class="container">
-        <h2 class="section-title">Liên Hệ & Hỗ Trợ</h2>
-        <div style="display:flex; gap:30px; justify-content:center; flex-wrap:wrap;">
-
-            <a id="contact-fb" target="_blank" class="card" style="text-align:center; width:260px;">
-                <i class="fab fa-facebook-messenger" style="font-size:3rem; color:#1877f2; margin-bottom:15px;"></i>
-                <h3>Messenger</h3>
-                <p style="color:#ccc;">Nhắn tin hỗ trợ nhanh</p>
-            </a>
-
-            <a id="contact-ds" target="_blank" class="card" style="text-align:center; width:260px;">
-                <i class="fab fa-discord" style="font-size:3rem; color:#5865f2; margin-bottom:15px;"></i>
-                <h3>Discord</h3>
-                <p style="color:#ccc;">Tham gia cộng đồng</p>
-            </a>
-
+    <!-- Mỗi section giờ có wrapper riêng để padding hoạt động đúng -->
+    <div id="about" class="section-wrapper">
+        <div class="container">
+            <h2 class="section-title">Khám Phá Server</h2>
+            <div class="auto-grid" id="about-grid"></div>
         </div>
-    </section>
+    </div>
 
+    <div id="rules" class="section-wrapper">
+        <div class="container">
+            <h2 class="section-title">Luật Máy Chủ</h2>
+            <div class="rule-list" id="rules-grid"></div>
+        </div>
+    </div>
+
+    <div id="ranks" class="section-wrapper">
+        <div class="container">
+            <h2 class="section-title">Hạng VIP & Đặc Quyền</h2>
+            <div class="auto-grid" id="ranks-grid"></div>
+        </div>
+    </div>
+
+    <div id="guides" class="section-wrapper">
+        <div class="container">
+            <h2 class="section-title">Hướng Dẫn Tân Thủ</h2>
+            <div class="auto-grid" id="guides-grid"></div>
+        </div>
+    </div>
+
+    <div id="pricing" class="section-wrapper">
+        <div class="container">
+            <h2 class="section-title">Bảng Giá Dịch Vụ</h2>
+            <div class="price-table">
+                <div class="price-table-header">
+                    <span>GÓI DỊCH VỤ</span>
+                    <span>CHI PHÍ</span>
+                </div>
+                <div id="pricing-grid"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="contact" class="section-wrapper">
+        <div class="container">
+            <h2 class="section-title">Liên Hệ & Hỗ Trợ</h2>
+            <div style="display:flex; gap:30px; justify-content:center; flex-wrap:wrap;">
+
+                <a id="contact-fb" target="_blank" class="card" style="text-align:center; width:400px; min-width:400px; max-width:400px;">
+                    <i class="fab fa-facebook-messenger" style="font-size:3rem; color:#1877f2; margin-bottom:15px;"></i>
+                    <h3 style="font-size:1.3rem;">Messenger</h3>
+                    <p style="color:#ccc; font-size:1rem;">Tham gia nhóm chat</p>
+                </a>
+
+                <a id="contact-ds" target="_blank" class="card" style="text-align:center; width:400px; min-width:400px; max-width:400px;">
+                    <i class="fab fa-discord" style="font-size:3rem; color:#5865f2; margin-bottom:15px;"></i>
+                    <h3 style="font-size:1.3rem;">Discord</h3>
+                    <p style="color:#ccc; font-size:1rem;">Tham gia cộng đồng</p>
+                </a>
+
+            </div>
+        </div>
+    </div>
 
     <footer
         style="padding: 60px 0; text-align: center; background: rgba(0,0,0,0.4); border-top: 1px solid var(--border);">
@@ -536,6 +563,7 @@
             document.getElementById('v-bedrock').innerText = `Bedrock: ${CONFIG.versions.bedrock}`;
             document.getElementById('contact-fb').href = CONFIG.social.facebook;
             document.getElementById('contact-ds').href = CONFIG.social.discord;
+
             // Render About
             document.getElementById('about-grid').innerHTML = CONFIG.about.map(a => `
                 <div class="card" style="text-align:center">
@@ -553,7 +581,7 @@
                 </div>
             `).join('');
 
-            // Render Ranks (Hỗ trợ nhiều hạng VIP tự động)
+            // Render Ranks
             document.getElementById('ranks-grid').innerHTML = CONFIG.ranks.map(rank => `
                 <div class="card rank-card" style="border-top-color: ${rank.color}">
                     ${rank.popular ? '<div class="hot-tag">PHỔ BIẾN</div>' : ''}
@@ -574,10 +602,10 @@
 
             // Render Pricing
             document.getElementById('pricing-grid').innerHTML = CONFIG.pricing.map(p => `
-                <tr>
-                    <td>${p.item}</td>
-                    <td>${p.price}</td>
-                </tr>
+                <div class="price-row">
+                    <span class="price-row-name">${p.item}</span>
+                    <span class="price-row-cost">${p.price}</span>
+                </div>
             `).join('');
 
             checkServer();
