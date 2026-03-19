@@ -8,7 +8,7 @@ const CONFIG = {
     
     // Phiên bản hỗ trợ
     versions: {
-        java: "1.16.5 - 1.20.x",
+        java: "1.7-1.21.11",
         bedrock: "Hỗ trợ bản mới nhất"
     },
 
