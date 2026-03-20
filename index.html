@@ -639,6 +639,107 @@
                 font-size: 1.8rem;
             }
         }
+
+        /* ===== RANK MODAL ===== */
+        .rank-modal-overlay {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.75);
+            backdrop-filter: blur(6px);
+            z-index: 2000;
+            display: flex; align-items: center; justify-content: center;
+            padding: 20px;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        .rank-modal-overlay.open {
+            opacity: 1; pointer-events: all;
+        }
+        .rank-modal {
+            background: #12121a;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 28px;
+            width: 100%; max-width: 540px;
+            max-height: 88vh;
+            overflow-y: auto;
+            transform: translateY(30px) scale(0.97);
+            transition: transform 0.3s;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.15) transparent;
+        }
+        .rank-modal-overlay.open .rank-modal {
+            transform: translateY(0) scale(1);
+        }
+        .rank-modal-header {
+            padding: 30px 30px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            display: flex; align-items: center; justify-content: space-between;
+            position: sticky; top: 0;
+            background: #12121a;
+            border-radius: 28px 28px 0 0;
+            z-index: 1;
+        }
+        .rank-modal-title {
+            font-size: 2rem; font-weight: 900;
+        }
+        .rank-modal-close {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: #fff; font-size: 1.2rem;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            transition: 0.2s; flex-shrink: 0;
+        }
+        .rank-modal-close:hover { background: rgba(255,255,255,0.18); }
+        .rank-modal-body { padding: 24px 30px 30px; }
+        .rank-modal-features { list-style: none; margin-bottom: 24px; }
+        .rank-modal-features li {
+            padding: 13px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 1.05rem; color: #eee;
+            display: flex; align-items: flex-start; gap: 12px;
+        }
+        .rank-modal-features li:last-child { border-bottom: none; }
+        .rank-modal-features li i { color: #22c55e; margin-top: 2px; flex-shrink: 0; }
+        .rank-modal-kit {
+            margin-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding-top: 20px;
+        }
+        .rank-modal-kit-label {
+            font-size: 0.85rem; font-weight: 800;
+            letter-spacing: 4px; opacity: 0.5;
+            text-transform: uppercase; margin-bottom: 14px;
+        }
+        .rank-modal-kit img {
+            width: 100%; border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.1);
+            display: block;
+        }
+        .rank-modal-kit-empty {
+            background: rgba(255,255,255,0.04);
+            border: 1px dashed rgba(255,255,255,0.15);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            color: rgba(255,255,255,0.3);
+            font-size: 1rem;
+        }
+        .rank-card { cursor: pointer; }
+        .rank-card-hint {
+            text-align: center;
+            margin-top: 18px;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.35);
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        @media (max-width: 768px) {
+            .rank-modal { max-height: 92vh; border-radius: 22px; }
+            .rank-modal-header { padding: 22px 22px 16px; border-radius: 22px 22px 0 0; }
+            .rank-modal-body { padding: 18px 22px 24px; }
+            .rank-modal-title { font-size: 1.7rem; }
+        }
     </style>
 </head>
 
@@ -815,12 +916,14 @@
             </div>`).join('');
 
             document.getElementById('ranks-grid').innerHTML = CONFIG.ranks.map(rank => `
-            <div class="card rank-card" style="border-top-color:${rank.color}">
+            <div class="card rank-card" style="border-top-color:${rank.color}" onclick="openRankModal('${rank.id}')">
                 ${rank.popular ? '<div class="hot-tag">PHỔ BIẾN</div>' : ''}
                 <div class="rank-name" style="color:${rank.color}">${rank.name}</div>
                 <ul class="rank-features">
-                    ${rank.features.map(f => `<li><i class="fas fa-check-circle"></i> ${f}</li>`).join('')}
+                    ${rank.features.slice(0,3).map(f => `<li><i class="fas fa-check-circle"></i> ${f}</li>`).join('')}
+                    ${rank.features.length > 3 ? `<li style="color:rgba(255,255,255,0.4); font-size:0.95rem;"><i class="fas fa-ellipsis-h" style="color:rgba(255,255,255,0.3)"></i> +${rank.features.length - 3} quyền lợi khác...</li>` : ''}
                 </ul>
+                <div class="rank-card-hint"><i class="fas fa-hand-pointer"></i> NHẤN ĐỂ XEM CHI TIẾT</div>
             </div>`).join('');
 
             document.getElementById('guides-grid').innerHTML = CONFIG.guides.map(g => `
@@ -860,6 +963,28 @@
         }
 
 
+
+        function openRankModal(rankId) {
+            const rank = CONFIG.ranks.find(r => r.id === rankId);
+            if (!rank) return;
+            document.getElementById('modal-rank-name').innerHTML = `<span style="color:${rank.color}">${rank.name}</span>`;
+            document.getElementById('modal-rank-features').innerHTML = rank.features
+                .map(f => `<li><i class="fas fa-check-circle"></i> ${f}</li>`).join('');
+            const kitEl = document.getElementById('modal-rank-kit');
+            kitEl.innerHTML = `<div class="rank-modal-kit-label">Kit hằng ngày</div>` +
+                (rank.kitImage
+                    ? `<img src="${rank.kitImage}" alt="Kit ${rank.name}">`
+                    : `<div class="rank-modal-kit-empty"><i class="fas fa-image" style="font-size:2rem; display:block; margin-bottom:10px; opacity:0.3;"></i>Chưa có ảnh kit</div>`);
+            document.getElementById('rank-modal-overlay').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeRankModal(e) {
+            if (e && e.target !== document.getElementById('rank-modal-overlay')) return;
+            document.getElementById('rank-modal-overlay').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeRankModal(null); });
+
         function copyIP() {
             navigator.clipboard.writeText(CONFIG.serverIP);
             const toast = document.getElementById('toast');
@@ -867,6 +992,20 @@
             setTimeout(() => toast.classList.remove('show'), 3000);
         }
     </script>
+
+    <!-- ===== RANK MODAL ===== -->
+    <div class="rank-modal-overlay" id="rank-modal-overlay" onclick="closeRankModal(event)">
+        <div class="rank-modal" id="rank-modal">
+            <div class="rank-modal-header">
+                <div class="rank-modal-title" id="modal-rank-name"></div>
+                <button class="rank-modal-close" onclick="closeRankModal(null)">✕</button>
+            </div>
+            <div class="rank-modal-body">
+                <ul class="rank-modal-features" id="modal-rank-features"></ul>
+                <div class="rank-modal-kit" id="modal-rank-kit"></div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
