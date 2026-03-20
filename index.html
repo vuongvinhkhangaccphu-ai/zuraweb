@@ -254,6 +254,7 @@
         /* HERO */
         .hero {
             height: 100vh;
+            height: 100dvh;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -860,6 +861,13 @@
     <div id="toast">✅ ĐÃ SAO CHÉP IP SERVER THÀNH CÔNG!</div>
 
     <script>
+        // Fix mobile viewport height (ẩn/hiện thanh browser)
+        function setVH() {
+            document.documentElement.style.setProperty('--vh', window.innerHeight * 0.01 + 'px');
+        }
+        setVH();
+        window.addEventListener('resize', setVH);
+
         function toggleMenu() {
             const menu = document.getElementById('mobile-menu');
             const burger = document.getElementById('hamburger');
