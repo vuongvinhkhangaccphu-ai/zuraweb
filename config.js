@@ -4,7 +4,7 @@ const CONFIG = {
     serverNameHighlight: "COMMUNITY",
     serverSlogan: "Cộng Đồng Sinh Tồn Đỉnh Cao",
     serverIP: "zura.wtf", // IP dùng để check trạng thái luôn
-    logoUrl: "https://scontent.fsgn3-1.fna.fbcdn.net/v/t1.15752-9/649275518_970915278940887_7208028772258560161_n.jpg?stp=dst-jpg_s480x480_tt6&_nc_cat=104&ccb=1-7&_nc_sid=0024fc&_nc_eui2=AeGG02mfklQhak-jFZTVmKqA0f2PNht6iwjR_Y82G3qLCJVZ16bZWxFSSucXE6HjPFLxIiwLSUw4MiSXStNjul5l&_nc_ohc=GJZejmqSQe4Q7kNvwE05uNz&_nc_oc=AdpGOL3SslvjPKI2KAojWmMZIrn2XElxxLXNpcNsqS8ossvM_ET8I57To7R8nmZqJQ8&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fsgn3-1.fna&_nc_ss=8&oh=03_Q7cD4wEB94FX5wyWT8kabsCwwBDFly0-N1y1MgKJgtVJkwiW1w&oe=69E36EEE", // Link logo Zura
+    logoUrl: "https://media.discordapp.net/attachments/1477738851983425657/1477753849950376108/file_0000000068bc71faafe386a73cd458ea.png?ex=69f6fd45&is=69f5abc5&hm=bffba007a830e4922d4182ac94d908019bb4fee16fcff17f3a9eb8a567791892&=&format=webp&quality=lossless&width=1898&height=1265", // Link logo Zura
     
     // Phiên bản hỗ trợ
     versions: {
